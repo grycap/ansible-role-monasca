@@ -1,0 +1,9 @@
+[devstack]
+devstack_ip_here
+
+[monasca]
+monasca_ip_here
+
+[monasca-agent:children]
+devstack
+monasca

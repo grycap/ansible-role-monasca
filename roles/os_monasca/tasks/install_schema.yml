@@ -1,0 +1,107 @@
+---
+# Copyright 2016 LSD/UFCG
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Get schemas
+  get_url:
+    url: "https://raw.githubusercontent.com/openstack/monasca-api/{{ monasca_git_branch }}/devstack/files/schema/{{ item.schema }}"
+    dest: "/opt/sqls/{{ item.schema }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - schema: "influxdb_setup.py"
+      mode: "0750"
+    - schema: "mon_mysql.sql"
+      mode: "0644"
+    - schema: "winchester.sql"
+      mode: "0644"
+  register: schemas
+  tags:
+    - monasca-schema-download
+    - monasca-install-schema
+
+- name: Setup influxdb schema
+  command: "/opt/sqls/influxdb_setup.py"
+  when: schemas.changed
+  tags:
+    - monasca-influxdb-schema
+    - monasca-install-schema
+
+- name: Create mon & winchester databases
+  mysql_db:
+    name: "{{ item }}"
+    state: "present"
+  with_items:
+    - "mon"
+    - "winchester"
+  when: schemas.changed
+  tags:
+    - monasca-mysql-dbcreate
+    - monasca-install-schema
+
+- name: Create database users
+  mysql_user:
+    name: "{{ item[0] }}"
+    password: "password"
+    priv: "mon.*:ALL"
+    host: "{{ item[1] }}"
+  with_nested:
+    - ['notification', 'monapi', 'thresh']
+    - ['%', 'localhost', '{{ ansible_hostname }}']
+
+- name: Setup mysql schemas
+  mysql_db:
+    state: "import"
+    name: "{{ item.name }}"
+    target: "/opt/sqls/{{ item.sql }}"
+  with_items:
+    - name: "mon"
+      sql: "mon_mysql.sql"
+    - name: "winchester"
+      sql: "winchester.sql"
+  when: schemas.changed
+  tags:
+    - monasca-mysql-schema
+    - monasca-install-schema
+
+- name: Create kafka topics logs dir
+  file:
+    path: "/opt/kafka/logs"
+    state: directory
+    owner: "kafka"
+    group: "kafka"
+    mode: "0766"
+  register: kafka_topics
+  tags:
+    - monasca-kafka-topics
+    - monasca-install-schema
+
+- name: Create kafka topics
+  command: "/opt/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions {{ item.partitions }} --topic {{ item.topic }}"
+  with_items:
+    - topic: "metrics"
+      partitions: "64"
+    - topic: "events"
+      partitions: "12"
+    - topic: "alarm-state-transitions"
+      partitions: "12"
+    - topic: "alarm-notifications"
+      partitions: "12"
+    - topic: "retry-notifications"
+      partitions: "3"
+    - topic: "60-seconds-notifications"
+      partitions: "3"
+  when: kafka_topics.changed
+  tags:
+    - monasca-kafka-topics
+    - monasca-install-schema
