@@ -1,8 +1,0 @@
-init_config:
-    ping_timeout: 1
-    ssh_port: 22
-    ssh_timeout: 0.5
-instances:
-  - alive_test: ssh
-    host_name: {{ ansible_fqdn }}
-    name: {{ ansible_hostname }}
