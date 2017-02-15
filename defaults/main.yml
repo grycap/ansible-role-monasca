@@ -22,6 +22,7 @@ monasca_thresh_git_repo: "https://git.openstack.org/openstack/monasca-thresh.git
 monasca_ui_git_repo: "https://git.openstack.org/openstack/monasca-ui.git"
 monasca_client_git_repo: "https://git.openstack.org/openstack/python-monascaclient.git"
 monasca_git_branch: "master"
+openstack_monasca_api_git_branch: "stable/newton"
 
 ## Grafana
 grafana_datasource_git_repo: "https://github.com/openstack/monasca-grafana-datasource.git"

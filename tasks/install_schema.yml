@@ -15,7 +15,7 @@
 
 - name: Get schemas
   get_url:
-    url: "https://raw.githubusercontent.com/openstack/monasca-api/{{ monasca_git_branch }}/devstack/files/schema/{{ item.schema }}"
+    url: "https://raw.githubusercontent.com/openstack/monasca-api/{{ openstack_monasca_api_git_branch }}/devstack/files/schema/{{ item.schema }}"
     dest: "/opt/sqls/{{ item.schema }}"
     mode: "{{ item.mode }}"
   with_items:
