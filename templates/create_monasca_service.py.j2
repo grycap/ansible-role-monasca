@@ -128,7 +128,7 @@ def add_service_endpoint(ks_client, name, description, type, url, region,
                 if endpoint.interface == interface:
                     return True
             else:
-                ks_client.endpoints.delete(id=endpoint.id)
+                ks_client.endpoints.delete(endpoint.id)
 
     ks_client.endpoints.create(region=region, service=service, url=url,
                                interface=interface)
