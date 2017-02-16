@@ -120,6 +120,7 @@
   pip:
     name: "{{ item }}"
     state: present
+    executable: pip
   register: install_packages
   until: install_packages|success
   retries: 5
