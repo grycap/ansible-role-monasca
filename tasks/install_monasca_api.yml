@@ -21,6 +21,9 @@
     - "gunicorn"
     - "influxdb==2.8.0"
     - "PyMySQL"
+    - "six>=1.10.0"
+    - "file://{{ monasca_common_tarball.stdout }}"
+    - "file://{{ monasca_statsd_tarball.stdout }}"
   tags:
     - monasca-api-pip-packages
     - monasca-install-api

@@ -15,15 +15,13 @@
 
 - name: Get schemas
   get_url:
-    url: "https://raw.githubusercontent.com/openstack/monasca-api/{{ openstack_monasca_api_git_branch }}/devstack/files/schema/{{ item.schema }}"
+    url: "https://raw.githubusercontent.com/openstack/monasca-api/{{ monasca_git_branch }}/devstack/files/schema/{{ item.schema }}"
     dest: "/opt/sqls/{{ item.schema }}"
     mode: "{{ item.mode }}"
   with_items:
     - schema: "influxdb_setup.py"
       mode: "0750"
     - schema: "mon_mysql.sql"
-      mode: "0644"
-    - schema: "winchester.sql"
       mode: "0644"
   register: schemas
   tags:
@@ -37,13 +35,12 @@
     - monasca-influxdb-schema
     - monasca-install-schema
 
-- name: Create mon & winchester databases
+- name: Create mon database
   mysql_db:
     name: "{{ item }}"
     state: "present"
   with_items:
     - "mon"
-    - "winchester"
   when: schemas.changed
   tags:
     - monasca-mysql-dbcreate
@@ -67,8 +64,6 @@
   with_items:
     - name: "mon"
       sql: "mon_mysql.sql"
-    - name: "winchester"
-      sql: "winchester.sql"
   when: schemas.changed
   tags:
     - monasca-mysql-schema

@@ -27,6 +27,12 @@ kafka:
         60: 60-seconds-notifications
     max_offset_lag: 600  # In seconds, undefined for none
 
+database:
+# repo_driver: monasca_notification.common.repositories.postgres.pgsql_repo:PostgresqlRepo
+# repo_driver: monasca_notification.common.repositories.orm.orm_repo:OrmRepo
+# repo_driver: monasca_notification.common.repositories.mysql.mysql_repo:MysqlRepo
+  repo_driver: "monasca_notification.common.repositories.mysql.mysql_repo:MysqlRepo"
+
 mysql:
     host: "{{ ansible_default_ipv4.address }}"
     user: "notification"
@@ -41,7 +47,7 @@ notification_types:
         user: ""
         password: ""
         timeout: 15
-        from_addr: "hpcs.mon@hp.com"
+        from_addr: "monasca@{{ ansible_hostname }}"
 
     webhook:
         timeout: 5
@@ -101,3 +107,6 @@ logging: # Used in logging.dictConfig
         handlers:
             - file
         level: WARN
+statsd:
+    host: "localhost"
+    port: 8125

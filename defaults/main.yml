@@ -15,6 +15,7 @@
 
 ## Monasca
 monasca_common_git_repo: "https://git.openstack.org/openstack/monasca-common.git"
+monasca_statsd_git_repo: "https://git.openstack.org/openstack/monasca-statsd.git"
 monasca_api_git_repo: "https://git.openstack.org/openstack/monasca-api.git"
 monasca_persister_git_repo: "https://git.openstack.org/openstack/monasca-persister.git"
 monasca_notification_git_repo: "https://git.openstack.org/openstack/monasca-notification.git"
@@ -22,7 +23,6 @@ monasca_thresh_git_repo: "https://git.openstack.org/openstack/monasca-thresh.git
 monasca_ui_git_repo: "https://git.openstack.org/openstack/monasca-ui.git"
 monasca_client_git_repo: "https://git.openstack.org/openstack/python-monascaclient.git"
 monasca_git_branch: "master"
-openstack_monasca_api_git_branch: "stable/newton"
 
 ## Grafana
 grafana_datasource_git_repo: "https://github.com/openstack/monasca-grafana-datasource.git"
@@ -86,6 +86,7 @@ monasca_system_user_home: "/var/lib/{{ monasca_system_user_name }}"
 pip_install_options: ""
 
 monasca_required_pip_packages:
+  - "--upgrade pip"
   - virtualenv
   - virtualenv-tools
   - httplib2
@@ -94,4 +95,3 @@ monasca_required_pip_packages:
 monasca_pip_packages:
   - python-keystoneclient
   - keystoneauth1
-  - simport

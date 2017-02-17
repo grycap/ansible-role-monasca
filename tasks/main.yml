@@ -30,7 +30,7 @@
 - include: install_storm.yml
 - include: install_influxdb.yml
 - include: install_schema.yml
-- include: install_monasca_common.yml
+- include: install_monasca_libraries.yml
 - include: install_monasca_api.yml
 - include: install_monasca_persister.yml
 - include: install_monasca_notification.yml

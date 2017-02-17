@@ -19,6 +19,8 @@
     virtualenv: "/opt/venvs/monasca-persister"
   with_items:
     - "influxdb==2.8.0"
+    - "six>=1.10.0"
+    - "file://{{ monasca_common_tarball.stdout }}"
   tags:
     - monasca-persister-pip-packages
     - monasca-install-persister
@@ -69,6 +71,11 @@
       mode: "0640"
     - src: "monasca-persister/persister-config.yml.j2"
       dest: "/etc/monasca/persister-config.yml"
+      owner: "mon-persister"
+      group: "monasca"
+      mode: "0640"
+    - src: "monasca-persister/persister-logging.conf.j2"
+      dest: "/etc/monasca/persister-logging.conf"
       owner: "mon-persister"
       group: "monasca"
       mode: "0640"

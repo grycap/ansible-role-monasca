@@ -19,6 +19,8 @@
     virtualenv: "/opt/venvs/monasca-notification"
   with_items:
     - "mysql-python"
+    - "file://{{ monasca_common_tarball.stdout }}"
+    - "file://{{ monasca_statsd_tarball.stdout }}"
   tags:
     - monasca-notification-pip-packages
     - monasca-install-notification

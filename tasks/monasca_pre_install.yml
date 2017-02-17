@@ -120,7 +120,6 @@
   pip:
     name: "{{ item }}"
     state: present
-    executable: pip
   register: install_packages
   until: install_packages|success
   retries: 5
@@ -197,6 +196,9 @@
   with_items:
     - repo: "{{ monasca_common_git_repo }}"
       dest: "monasca-common"
+      version: "{{ monasca_git_branch }}"
+    - repo: "{{ monasca_statsd_git_repo }}"
+      dest: "monasca-statsd"
       version: "{{ monasca_git_branch }}"
     - repo: "{{ monasca_api_git_repo }}"
       dest: "monasca-api"
