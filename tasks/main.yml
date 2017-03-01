@@ -22,14 +22,6 @@
   tags:
     - always
 
-- name: Install kafka using role
-  roles:
-    - { role: 'grycap.kafka' }
-  vars:
-    - kafka_system_shell: "{{ monasca_system_shell }}"
-    - kafka_system_user_home: "{{ monasca_system_user_home }}"
-
-
 - include: monasca_pre_install.yml
 - include: configure_database.yml
 - include: configure_ntp.yml
