@@ -17,6 +17,7 @@
   pip:
     name: "{{ item }}"
     virtualenv: "/opt/venvs/monasca-api"
+    executable: "pip"
   with_items:
     - "gunicorn"
     - "influxdb==2.8.0"
