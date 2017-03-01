@@ -13,27 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Gather variables for each operating system
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version | lower }}.yml"
-    - "{{ ansible_distribution | lower }}.yml"
-    - "{{ ansible_os_family | lower }}.yml"
-  tags:
-    - always
+- roles:
+  - role: 'grycap.kafka'
+      kafka_system_shell: "{{ monasca_system_shell }}"
+      kafka_system_user_home: "{{ monasca_system_user_home }}"
 
-- include: monasca_pre_install.yml
-- include: configure_database.yml
-- include: configure_ntp.yml
-- include: configure_zookeeper.yml
-- include: install_kafka.yml
-- include: install_storm.yml
-- include: install_influxdb.yml
-- include: install_schema.yml
-- include: install_monasca_libraries.yml
-- include: install_monasca_api.yml
-- include: install_monasca_persister.yml
-- include: install_monasca_notification.yml
-- include: install_monasca_thresh.yml
-- include: install_monasca_client.yml
-- include: monasca_post_install.yml
+  tasks:
+  - name: Gather variables for each operating system
+    include_vars: "{{ item }}"
+    with_first_found:
+      - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version | lower }}.yml"
+      - "{{ ansible_distribution | lower }}.yml"
+      - "{{ ansible_os_family | lower }}.yml"
+    tags:
+      - always
+
+  - include: monasca_pre_install.yml
+  - include: configure_database.yml
+  - include: configure_ntp.yml
+  - include: configure_zookeeper.yml
+  - include: install_storm.yml
+  - include: install_influxdb.yml
+  - include: install_schema.yml
+  - include: install_monasca_libraries.yml
+  - include: install_monasca_api.yml
+  - include: install_monasca_persister.yml
+  - include: install_monasca_notification.yml
+  - include: install_monasca_thresh.yml
+  - include: install_monasca_client.yml
+  - include: monasca_post_install.yml

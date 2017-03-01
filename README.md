@@ -66,10 +66,6 @@ Role Variables
     ## InfluxDB
     influxdb_version: "0.9.5"
 
-    ## Kafka
-    base_kafka_version: "0.8.1.1"
-    kafka_version: "2.9.2-{{ base_kafka_version }}"
-
     ## Storm
     storm_version: "1.0.2"
 
