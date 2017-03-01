@@ -14,9 +14,7 @@
 # limitations under the License.
 
 - roles:
-  - role: 'grycap.kafka'
-      kafka_system_shell: "{{ monasca_system_shell }}"
-      kafka_system_user_home: "{{ monasca_system_user_home }}"
+  - { role: 'grycap.kafka', kafka_system_shell: "{{ monasca_system_shell }}", kafka_system_user_home: "{{ monasca_system_user_home }}" }
 
   tasks:
   - name: Gather variables for each operating system
