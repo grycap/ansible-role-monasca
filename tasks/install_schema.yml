@@ -37,18 +37,16 @@
   retries: 3
   delay: 10
 
-- name: Create mon database
+- name: Ensure mon database exists
   mysql_db:
-    name: "{{ item }}"
+    name: "mon"
     state: "present"
-  with_items:
-    - "mon"
-  when: schemas.changed
+  notify: Import mon database
   tags:
     - monasca-mysql-dbcreate
     - monasca-install-schema
 
-- name: Create database users
+- name: Ensure database users
   mysql_user:
     name: "{{ item[0] }}"
     password: "password"
@@ -57,18 +55,8 @@
   with_nested:
     - ['notification', 'monapi', 'thresh']
     - ['%', 'localhost', '{{ ansible_hostname }}']
-
-- name: Setup mysql schemas
-  mysql_db:
-    state: "import"
-    name: "{{ item.name }}"
-    target: "/opt/sqls/{{ item.sql }}"
-  with_items:
-    - name: "mon"
-      sql: "mon_mysql.sql"
-  when: schemas.changed
   tags:
-    - monasca-mysql-schema
+    - monasca-mysql-users
     - monasca-install-schema
 
 - name: Create kafka topics logs dir
