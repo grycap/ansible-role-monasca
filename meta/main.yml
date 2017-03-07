@@ -12,6 +12,7 @@ galaxy_info:
   - monasca
 
 dependencies:
+  - { role: 'grycap.influxdb' }
   - { role: 'grycap.zookeeper' }
   - { role: 'grycap.kafka', kafka_system_shell: '{{ monasca_system_shell }}',
                             kafka_system_user_home: '{{ monasca_system_user_home }}' }
