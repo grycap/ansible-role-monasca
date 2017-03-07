@@ -20,7 +20,6 @@
     system: "yes"
   with_items:
     - "{{ monasca_system_group_name }}"
-    - "storm"
     - "grafana"
   tags:
     - system-groups
@@ -39,10 +38,6 @@
       group: "{{ monasca_system_group_name }}"
       comment: "{{ monasca_system_comment }}"
       createhome: "yes"
-    - name: "storm"
-      group: "storm"
-      comment: "Storm system user"
-      createhome:  "no"
     - name: "mon-api"
       group: "monasca"
       comment: "monasca-api system user"
@@ -86,8 +81,6 @@
     - { path: "/var/log/monasca/api", owner: "root", mode: "0775"}
     - { path: "/var/log/monasca/persister", owner: "root", mode: "0775"}
     - { path: "/var/log/monasca/notification", owner: "root", mode: "0775"}
-    - { path: "/var/storm", mode: "0775", owner: "storm", group: "storm" }
-    - { path: "/var/log/storm", mode: "0775", owner: "storm", group: "storm" }
     - { path: "/etc/grafana", mode: "0775", owner: "root", group: "root" }
     - { path: "/var/lib/grafana", mode: "0775", owner: "grafana", group: "grafana" }
     - { path: "/var/lib/grafana/plugins", mode: "0775", owner: "grafana", group: "grafana" }

@@ -15,3 +15,5 @@ dependencies:
   - { role: 'grycap.zookeeper' }
   - { role: 'grycap.kafka', kafka_system_shell: '{{ monasca_system_shell }}',
                             kafka_system_user_home: '{{ monasca_system_user_home }}' }
+  - { role: 'grycap.storm', storm_system_shell: '{{ monasca_system_shell }}',
+                            storm_system_user_home: '{{ monasca_system_user_home }}' }
