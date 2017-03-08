@@ -39,10 +39,8 @@
 
 - name: Create mon database
   mysql_db:
-    name: "{{ item }}"
+    name: "mon"
     state: "present"
-  with_items:
-    - "mon"
   when: schemas.changed
   tags:
     - monasca-mysql-dbcreate
@@ -61,11 +59,8 @@
 - name: Setup mysql schemas
   mysql_db:
     state: "import"
-    name: "{{ item.name }}"
-    target: "/opt/sqls/{{ item.sql }}"
-  with_items:
-    - name: "mon"
-      sql: "mon_mysql.sql"
+    name: "mon"
+    target: "/opt/sqls/mon_mysql.sql"
   when: schemas.changed
   tags:
     - monasca-mysql-schema
@@ -83,10 +78,10 @@
     - monasca-kafka-topics
     - monasca-install-schema
 
-- name: Select java version 8 (Problems with java 9)
-  alternatives:
-    name: java
-    path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+#- name: Select java version 8 (Problems with java 9)
+#  alternatives:
+#    name: java
+#    path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
 - name: Create kafka topics
   command: "/opt/kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions {{ item.partitions }} --topic {{ item.topic }}"

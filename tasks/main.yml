@@ -25,9 +25,6 @@
 - include: monasca_pre_install.yml
 - include: configure_database.yml
 - include: configure_ntp.yml
-- include: configure_zookeeper.yml
-- include: install_storm.yml
-- include: install_influxdb.yml
 - include: install_schema.yml
 - include: install_monasca_libraries.yml
 - include: install_monasca_api.yml

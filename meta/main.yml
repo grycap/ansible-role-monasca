@@ -1,7 +1,7 @@
 galaxy_info:
-  author: flaviodsr
+  author: alpegon3@upv.es
   description: Install and configure OpenStack Monasca
-  company: UFCG/LSD
+  company: GRyCAP
   license: Apache
   min_ansible_version: 2.1.0
   platforms:
@@ -9,6 +9,14 @@ galaxy_info:
     versions:
     - xenial
   galaxy_tags:
-    - monasca
+  - monasca
 
-dependencies: []
+dependencies:
+  - { role: 'grycap.influxdb' }
+  - { role: 'grycap.zookeeper' }
+  - { role: 'grycap.kafka', kafka_system_shell: '{{ monasca_system_shell }}',
+                            kafka_system_user_home: '{{ monasca_system_user_home }}' }
+  - { role: 'grycap.storm', storm_system_shell: '{{ monasca_system_shell }}',
+                            storm_system_user_home: '{{ monasca_system_user_home }}' }
+  - { role: 'grycap.grafana', grafana_system_shell: '{{ monasca_system_shell }}',
+                              grafana_system_user_home: '{{ monasca_system_user_home }}' }
