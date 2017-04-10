@@ -8,27 +8,27 @@ keys = console, file
 keys = generic
 
 [logger_root]
-level = DEBUG
+level = INFO
 formatter = default
 handlers = console, file
 
 [logger_kafka]
 qualname = kafka
-level = DEBUG
+level = INFO
 formatter = default
 handlers = console, file
 propagate = 0
 
 [logger_influxdb]
 qualname = influxdb
-level = DEBUG
+level = INFO
 formatter = default
 handlers = console, file
 propagate = 0
 
 [logger_cassandra]
 qualname = cassandra
-level = DEBUG
+level = INFO
 formatter = default
 handlers = console, file
 propagate = 0
@@ -36,12 +36,12 @@ propagate = 0
 [handler_console]
 class = logging.StreamHandler
 args = (sys.stderr,)
-level = DEBUG
+level = INFO
 formatter = generic
 
 [handler_file]
 class = logging.handlers.RotatingFileHandler
-level = DEBUG
+level = INFO
 formatter = generic
 # store up to 5*100MB of logs
 args = ('/var/log/monasca/persister/persister.log', 'a', 104857600, 5)
