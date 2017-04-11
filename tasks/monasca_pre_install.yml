@@ -63,7 +63,6 @@
     mode: "{{ item.mode|default('0755') }}"
   with_items:
     - { path: "/opt", mode: "0755", owner: "root", group: "root" }
-    - { path: "/opt/venvs", mode: "0755", owner: "root", group: "root" }
     - { path: "/opt/sqls", mode: "0755", owner: "root", group: "root" }
     - { path: "/opt/cloned-repos", mode: "0755", owner: "root", group: "root" }
     - { path: "/etc/monasca", owner: root, mode: "0775"}
@@ -104,55 +103,10 @@
     - monasca-install
     - monasca-pip-packages
 
-- name: Create monasca venv dirs
-  file:
-    path: "/opt/venvs/monasca-{{ item }}"
-    state: directory
-    owner: "root"
-    group: "monasca"
-    mode: "0775"
-  with_items:
-    - "client"
-    - "api"
-    - "persister"
-    - "notification"
-    - "thresh"
-  tags:
-    - monasca-venv-dirs
-
-- name: Create monasca virtualenvs
-  command: "virtualenv /opt/venvs/monasca-{{ item }}"
-  args:
-    creates: "/opt/venvs/monasca-{{ item }}/bin"
-  with_items:
-    - "client"
-    - "api"
-    - "persister"
-    - "notification"
-  tags:
-    - monasca-install
-    - monasca-create-venv
-
-- name: Ensure monasca group on venv
-  file:
-    dest: "/opt/venvs/monasca-{{ item }}"
-    owner: "root"
-    group: "monasca"
-    recurse: "yes"
-  with_items:
-    - "client"
-    - "api"
-    - "persister"
-    - "notification"
-  tags:
-    - monasca-install
-    - monasca-create-venv
-
-- name: Install pip packages (venv)
+- name: Install pip packages
   pip:
     name: "{{ item }}"
     state: present
-    virtualenv: "/opt/venvs/monasca-client"
   register: install_packages
   until: install_packages|success
   retries: 5

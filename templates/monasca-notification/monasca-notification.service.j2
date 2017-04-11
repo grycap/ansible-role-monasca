@@ -23,7 +23,7 @@ After=network.target kafka.service mysql.service
 User=mon-notification
 Group=monasca
 TimeoutStopSec=240
-ExecStart=/opt/venvs/monasca-notification/bin/monasca-notification
+ExecStart=/usr/local/bin/monasca-notification
 Restart=on-failure
 
 [Install]

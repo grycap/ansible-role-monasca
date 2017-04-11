@@ -13,10 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Install monasca-api required pip packages (venv)
+- name: Install monasca-api required pip packages
   pip:
     name: "{{ item }}"
-    virtualenv: "/opt/venvs/monasca-api"
   with_items:
     - "gunicorn"
     - "influxdb==2.8.0"
@@ -29,7 +28,7 @@
     - monasca-install-api
 
 - name: Create monasca-api tarball
-  command: "/opt/venvs/monasca-api/bin/python setup.py sdist"
+  command: "python setup.py sdist"
   args:
     chdir: "/opt/cloned-repos/monasca-api"
   register: api_result
@@ -49,7 +48,6 @@
 - name: Install monasca-api
   pip:
     name: "file://{{ tarball.stdout }}"
-    virtualenv: "/opt/venvs/monasca-api"
   tags:
     - monasca-api-install
     - monasca-install-api

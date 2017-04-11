@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Create monasca-client tarball
-  command: "/opt/venvs/monasca-client/bin/python setup.py sdist"
+  command: "python setup.py sdist"
   args:
     chdir: "/opt/cloned-repos/monasca-client"
   register: client_result
@@ -34,7 +34,6 @@
 - name: Install monasca-client
   pip:
     name: "file://{{ tarball.stdout }}"
-    virtualenv: "/opt/venvs/monasca-client"
   tags:
     - monasca-client-install
     - monasca-install-client

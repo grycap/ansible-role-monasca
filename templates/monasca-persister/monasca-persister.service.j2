@@ -22,7 +22,7 @@ After=network.target kafka.service influxdb.service
 [Service]
 User=mon-persister
 Group=monasca
-ExecStart=/opt/venvs/monasca-persister/bin/python /opt/venvs/monasca-persister/lib/python2.7/site-packages/monasca_persister/persister.py --config-file /etc/monasca/persister.conf
+ExecStart=python /usr/local/lib/python2.7/dist-packages/monasca_persister/persister.py --config-file /etc/monasca/persister.conf
 Restart=on-failure
 
 [Install]

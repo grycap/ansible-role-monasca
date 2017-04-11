@@ -23,7 +23,7 @@
     - monasca-install-libraries
 
 - name: Create monasca libraries tarball
-  command: "/opt/venvs/monasca-api/bin/python setup.py sdist"
+  command: "python setup.py sdist"
   args:
     chdir: "/opt/cloned-repos/monasca-{{ item }}"
   with_items:
