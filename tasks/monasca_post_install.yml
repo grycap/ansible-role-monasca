@@ -18,19 +18,11 @@
     name: "eventlet"
     state: present
     version: 0.20.0
-    virtualenv: "{{ monasca_venv_bin | dirname }}"
-    virtualenv_site_packages: "no"
-  register: install_packages
-  until: install_packages|success
-  retries: 5
-  delay: 2
-  with_items: monasca_pip_packages
-  when:
-    - monasca_venv_enabled | bool
+    virtualenv: "/opt/venvs/monasca-api"
   tags:
-    - monasca-install
-    - monasca-pip-packages
-
+    - monasca-api-pip-packages
+    - monasca-install-api
+    
 - name: Copy monasca keystone script
   template:
     src: "create_monasca_service.py.j2"
