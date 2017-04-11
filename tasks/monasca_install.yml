@@ -24,7 +24,7 @@
   tags:
     - monasca-update-maven
 
-- name: Set pip_install_options_fact 
+- name: Set pip_install_options_fact
   set_fact:
     pip_install_options_fact: "{{ pip_install_options|default('') }}"
   tags:
@@ -34,7 +34,7 @@
 - name: Install pip required packages
   pip:
     name: "{{ item }}"
-    state: present 
+    state: present
   register: install_packages
   until: install_packages|success
   retries: 5
@@ -51,6 +51,24 @@
   tags:
     - monasca-install
     - monasca-create-venv
+
+- name: Install 'eventlet' package
+  pip:
+    name: "eventlet"
+    state: present
+    version: 0.20.0
+    virtualenv: "{{ monasca_venv_bin | dirname }}"
+    virtualenv_site_packages: "no"
+  register: install_packages
+  until: install_packages|success
+  retries: 5
+  delay: 2
+  with_items: monasca_pip_packages
+  when:
+    - monasca_venv_enabled | bool
+  tags:
+    - monasca-install
+    - monasca-pip-packages
 
 - name: Install pip packages (venv)
   pip:
