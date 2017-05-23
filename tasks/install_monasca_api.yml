@@ -22,6 +22,7 @@
     - "influxdb==2.8.0"
     - "PyMySQL"
     - "six>=1.10.0"
+    - "eventlet==0.20.1"
     - "file://{{ monasca_common_tarball.stdout }}"
     - "file://{{ monasca_statsd_tarball.stdout }}"
   tags:
