@@ -23,6 +23,7 @@
     - "PyMySQL"
     - "six>=1.10.0"
     - "eventlet==0.20.1"
+    - "babel"    
     - "file://{{ monasca_common_tarball.stdout }}"
     - "file://{{ monasca_statsd_tarball.stdout }}"
   tags:
