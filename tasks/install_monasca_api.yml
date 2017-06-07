@@ -23,7 +23,7 @@
     - "PyMySQL"
     - "six>=1.10.0"
     - "eventlet==0.20.1"
-    - "babel"    
+    - "babel"
     - "file://{{ monasca_common_tarball.stdout }}"
     - "file://{{ monasca_statsd_tarball.stdout }}"
   tags:
@@ -108,6 +108,17 @@
   tags:
     - monasca-api-boot
 
+- name: Disable monasca-api health check 1
+  lineinfile:
+    path: /opt/venvs/monasca-api/local/lib/python2.7/site-packages/monasca_api/api/server.py
+    regexp: 'healthchecks.*simport.load\(cfg.CONF.dispatcher.healthchecks\)\(\)'
+    line: '#healthchecks = simport.load(cfg.CONF.dispatcher.healthchecks)()'
+
+- name: Disable monasca-api health check 2
+  lineinfile:
+    path: /opt/venvs/monasca-api/local/lib/python2.7/site-packages/monasca_api/api/server.py
+    regexp: 'app.add_route\("/healthcheck",.*healthchecks\)'
+    line: '#app.add_route("/healthcheck", healthchecks)'
 
 - name: Restart monasca-api
   service:
