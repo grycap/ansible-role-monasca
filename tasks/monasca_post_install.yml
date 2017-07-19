@@ -17,12 +17,12 @@
   pip:
     name: "eventlet"
     state: present
-    version: 0.20.0
+    version: 0.20.1
     virtualenv: "/opt/venvs/monasca-api"
   tags:
     - monasca-api-pip-packages
     - monasca-install-api
-    
+
 - name: Copy monasca keystone script
   template:
     src: "create_monasca_service.py.j2"
