@@ -13,39 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Install monasca-notification required pip packages (venv)
-  pip:
-    name: "{{ item }}"
-    virtualenv: "/opt/venvs/monasca-notification"
-  with_items:
-    - "mysql-python"
-    - "file://{{ monasca_common_tarball.stdout }}"
-    - "file://{{ monasca_statsd_tarball.stdout }}"
-  tags:
-    - monasca-notification-pip-packages
-    - monasca-install-notification
-
-- name: Create monasca-notification tarball
-  command: "/opt/venvs/monasca-notification/bin/python setup.py sdist"
-  args:
-    chdir: "/opt/cloned-repos/monasca-notification"
-  register: notification_result
-  changed_when: "notification_result.rc == 0"
-  tags:
-    - monasca-notification-tarball
-    - monasca-install-notification
-
-- name: Get tarball file name
-  shell: "ls -td /opt/cloned-repos/monasca-notification/dist/monasca-notification-*.tar.gz | head -1"
-  register: tarball
-  changed_when: false
-  tags:
-    - monasca-notification-install
-    - monasca-install-notification
-
 - name: Install monasca-notification
   pip:
-    name: "file://{{ tarball.stdout }}"
+    name: monasca-notification
     virtualenv: "/opt/venvs/monasca-notification"
   tags:
     - monasca-notification-install

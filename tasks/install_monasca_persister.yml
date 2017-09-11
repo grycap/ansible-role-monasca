@@ -13,39 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Install monasca-persister required pip packages (venv)
-  pip:
-    name: "{{ item }}"
-    virtualenv: "/opt/venvs/monasca-persister"
-  with_items:
-    - "influxdb==2.8.0"
-    - "six>=1.10.0"
-    - "file://{{ monasca_common_tarball.stdout }}"
-  tags:
-    - monasca-persister-pip-packages
-    - monasca-install-persister
-
-- name: Create monasca-persister tarball
-  command: "/opt/venvs/monasca-persister/bin/python setup.py sdist"
-  args:
-    chdir: "/opt/cloned-repos/monasca-persister"
-  register: tarball_result
-  changed_when: "tarball_result.rc == 0"
-  tags:
-    - monasca-persister-tarball
-    - monasca-install-persister
-
-- name: Get tarball file name
-  shell: "ls -td /opt/cloned-repos/monasca-persister/dist/monasca-persister-*.tar.gz | head -1"
-  register: tarball
-  changed_when: false
-  tags:
-    - monasca-persister-install
-    - monasca-install-persister
-
 - name: Install monasca-persister
   pip:
-    name: "file://{{ tarball.stdout }}"
+    name: monasca-persister
     virtualenv: "/opt/venvs/monasca-persister"
   tags:
     - monasca-persister-install
