@@ -21,6 +21,14 @@
     - monasca-notification-install
     - monasca-install-notification
 
+- name: Install monasca-client in notification environment
+  pip:
+    name: python-monascaclient
+    virtualenv: "/opt/venvs/monasca-notification"
+  tags:
+    - monasca-notification-install
+    - monasca-install-notification
+
 - name: Drop monasca-notification Config(s)
   template:
     src: "{{ item.src }}"
