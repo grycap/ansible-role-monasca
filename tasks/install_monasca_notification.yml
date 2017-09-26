@@ -24,6 +24,7 @@
 - name: Install monasca-client in notification environment
   pip:
     name: python-monascaclient
+    version: 1.0.9    
     virtualenv: "/opt/venvs/monasca-notification"
   tags:
     - monasca-notification-install

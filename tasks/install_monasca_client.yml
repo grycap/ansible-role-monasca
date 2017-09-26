@@ -16,6 +16,7 @@
 - name: Install monasca-client
   pip:
     name: python-monascaclient
+    version: 1.0.9
     virtualenv: "/opt/venvs/monasca-client"
   tags:
     - monasca-client-install
