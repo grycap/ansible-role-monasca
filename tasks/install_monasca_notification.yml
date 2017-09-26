@@ -17,15 +17,11 @@
   pip:
     name: monasca-notification
     virtualenv: "/opt/venvs/monasca-notification"
-  tags:
-    - monasca-notification-install
-    - monasca-install-notification
-
-- name: Install monasca-client in notification environment
-  pip:
-    name: python-monascaclient
-    version: 1.0.9    
-    virtualenv: "/opt/venvs/monasca-notification"
+  with_items:
+    - "mysql-python"
+    - "monasca-common"
+    - "monasca-statsd"
+    - "monasca-notification"
   tags:
     - monasca-notification-install
     - monasca-install-notification

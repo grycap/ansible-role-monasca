@@ -15,8 +15,13 @@
 
 - name: Install monasca-persister
   pip:
-    name: monasca-persister
+    name: {{ item }}
     virtualenv: "/opt/venvs/monasca-persister"
+  with_items:
+    - "influxdb==2.8.0"
+    - "six>=1.10.0"
+    - "monasca-common"
+    - "monasca-persister"
   tags:
     - monasca-persister-install
     - monasca-install-persister
