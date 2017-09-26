@@ -13,35 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#- name: Create monasca-client tarball
-#  command: "/opt/venvs/monasca-client/bin/python setup.py sdist"
-#  args:
-#    chdir: "/opt/cloned-repos/monasca-client"
-#  register: client_result
-#  changed_when: "client_result.rc == 0"
-#  tags:
-#    - monasca-client-tarball
-#    - monasca-install-client
-
-#- name: Get tarball file name
-#  shell: "ls -td /opt/cloned-repos/monasca-client/dist/python-monascaclient*.tar.gz | head -1"
-#  register: tarball
-#  changed_when: false
-#  tags:
-#    - monasca-client-install
-#    - monasca-install-client
-
-#- name: Install monasca-client
-#  pip:
-#    name: "file://{{ tarball.stdout }}"
-#    virtualenv: "/opt/venvs/monasca-client"
-#  tags:
-#    - monasca-client-install
-#    - monasca-install-client
-
 - name: Install monasca-client
   pip:
     name: python-monascaclient
+    version: 1.0.9
     virtualenv: "/opt/venvs/monasca-client"
   tags:
     - monasca-client-install
