@@ -15,8 +15,18 @@
 
 - name: Install monasca-api
   pip:
-    name: monasca-api
+    name: {{ item }}
     virtualenv: "/opt/venvs/monasca-api"
+  with_items:
+    - "gunicorn"
+    - "influxdb==2.8.0"
+    - "PyMySQL"
+    - "six>=1.10.0"
+    - "eventlet==0.20.1"
+    - "babel"
+    - "monasca-common"
+    - "monasca-statsd"    
+    - "monasca-api"
   tags:
     - monasca-api-install
     - monasca-install-api
