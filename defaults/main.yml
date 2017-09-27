@@ -16,9 +16,9 @@
 ## Monasca
 monasca_common_git_repo: "https://git.openstack.org/openstack/monasca-common.git"
 monasca_statsd_git_repo: "https://git.openstack.org/openstack/monasca-statsd.git"
-monasca_api_git_repo: "https://git.openstack.org/openstack/monasca-api.git"
-monasca_persister_git_repo: "https://git.openstack.org/openstack/monasca-persister.git"
-monasca_notification_git_repo: "https://git.openstack.org/openstack/monasca-notification.git"
+#monasca_api_git_repo: "https://git.openstack.org/openstack/monasca-api.git"
+#monasca_persister_git_repo: "https://git.openstack.org/openstack/monasca-persister.git"
+#monasca_notification_git_repo: "https://git.openstack.org/openstack/monasca-notification.git"
 monasca_thresh_git_repo: "https://git.openstack.org/openstack/monasca-thresh.git"
 monasca_ui_git_repo: "https://git.openstack.org/openstack/monasca-ui.git"
 monasca_client_git_repo: "https://git.openstack.org/openstack/python-monascaclient.git"
