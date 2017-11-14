@@ -64,7 +64,7 @@ Role Variables
     mysql_root_pass: "password"
 
     ## InfluxDB
-    influxdb_version: "0.9.5"
+    influxdb_version: "4.1.1"
 
     ## Storm
     storm_version: "1.0.2"

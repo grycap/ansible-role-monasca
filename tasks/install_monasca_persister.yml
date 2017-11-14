@@ -18,7 +18,7 @@
     name: "{{ item }}"
     virtualenv: "/opt/venvs/monasca-persister"
   with_items:
-    - "influxdb==2.8.0"
+    - "influxdb=={{influxdb_version}}"
     - "six>=1.10.0"
     - "monasca-common"
     - "monasca-persister"
