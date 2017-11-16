@@ -32,6 +32,7 @@ grafana_git_branch: "master-keystone"
 
 ## Keystone
 keystone_ip_address: "127.0.0.1"
+keystone_domain: "default"
 # admin credentials
 os_username: "admin"
 os_password: "password"
@@ -54,7 +55,7 @@ os_mon_agent_password: "password"
 mysql_root_pass: "password"
 
 ## InfluxDB
-influxdb_version: "0.9.5"
+influxdb_version: "4.1.1"
 
 ## Storm
 storm_version: "1.0.2"
